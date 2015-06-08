@@ -1,0 +1,42 @@
+52a53
+> 
+54d54
+<         # self.logger.info("packet in %s %s %s %s", dpid, src, dst, msg.in_port)
+57a58,59
+>         self.mac_to_port[dpid][src] = msg.in_port
+>         
+59,60d60
+<               
+<         # Use the provided function "add_flow" to install a flow to avoid packet_in next time
+65a66
+>         # actions = [datapath.ofproto_parser.OFPActionOutput(out_port, max_len=65509, type_=None, len_=None)]
+67c68,69
+< 
+---
+>         
+>         # Use the provided function "add_flow" to install a flow to avoid packet_in next time
+70,71c72,79
+<             self.add_flow(datapath, msg.in_port, dst, actions)
+<     
+---
+>             self.add_flow(
+>                 datapath, 
+>                 msg.in_port, 
+>                 dst, 
+>                 actions
+>             )
+> 
+>        
+77,78c85,90
+<             datapath=datapath, buffer_id=msg.buffer_id, in_port=msg.in_port,
+<             actions=actions, data=data)
+---
+>             datapath=datapath, 
+>             buffer_id=msg.buffer_id, 
+>             in_port=msg.in_port,
+>             actions=actions, 
+>             data=data
+>         )
+80a93
+>     
+\ No newline at end of file

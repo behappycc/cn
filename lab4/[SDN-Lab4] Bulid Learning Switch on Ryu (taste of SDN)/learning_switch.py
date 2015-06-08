@@ -50,7 +50,7 @@ class SimpleSwitch(app_manager.RyuApp):
 
         dpid = datapath.id
         self.mac_to_port.setdefault(dpid, {})
-
+        self.logger.info("packet in %s %s %s %s", dpid, src, dst, msg.in_port)
         # self.logger.info("packet in %s %s %s %s", dpid, src, dst, msg.in_port)
 
         # Add your code below
@@ -58,6 +58,7 @@ class SimpleSwitch(app_manager.RyuApp):
         # If the mac_dst still not learned flood the packet
               
         # Use the provided function "add_flow" to install a flow to avoid packet_in next time
+        self.mac_to_port[dpid][src] = msg.in_port
         if dst in self.mac_to_port[dpid]:
             out_port = self.mac_to_port[dpid][dst]
         else:
